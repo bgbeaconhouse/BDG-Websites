@@ -196,6 +196,23 @@ header {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(37, 99, 235, 0.5);
 }
 
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-button-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.cta-button-secondary:hover {
+    background: var(--white);
+    color: var(--primary-color);
+}
 /* Portfolio Section */
 .portfolio {
     padding: 5rem 0;
