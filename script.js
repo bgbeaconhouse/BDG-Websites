@@ -9,7 +9,34 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 block: 'start'
             });
         }
+        
+        // Close mobile menu after clicking a link
+        const navLinks = document.querySelector('.nav-links');
+        const menuToggle = document.querySelector('.mobile-menu-toggle');
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
     });
+});
+
+// Mobile menu toggle
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.navbar')) {
+        navLinks.classList.remove('active');
+        mobileMenuToggle.classList.remove('active');
+    }
 });
 
 // Handle contact form submission
