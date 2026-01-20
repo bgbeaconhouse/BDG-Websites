@@ -9,34 +9,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 block: 'start'
             });
         }
-        
-        // Close mobile menu after clicking a link
-        const navLinks = document.querySelector('.nav-links');
-        const menuToggle = document.querySelector('.mobile-menu-toggle');
-        if (navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            menuToggle.classList.remove('active');
-        }
     });
-});
-
-// Mobile menu toggle
-const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-
-if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', () => {
-        mobileMenuToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-}
-
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.navbar')) {
-        navLinks.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
-    }
 });
 
 // Handle contact form submission
@@ -64,7 +37,7 @@ contactForm.addEventListener('submit', async (e) => {
         const data = await response.json();
         
         if (response.ok) {
-            formMessage.textContent = 'Thank you! Your message has been sent successfully.';
+            formMessage.textContent = "Message sent successfully. I'll get back to you soon";
             formMessage.className = 'form-message success';
             contactForm.reset();
         } else {
@@ -82,26 +55,10 @@ contactForm.addEventListener('submit', async (e) => {
     }, 5000);
 });
 
-// Placeholder image handling - replace with actual project images
-const projectImages = {
-    'project1-img': '/images/Thrift_Shift.png',
-    'project2-img': '/images/alumni_pic.PNG',
-    'project3-img': '/images/shift_scheduler.png',
-    'profile-img': '/images/headshot.JPG'
-};
-
-// Set placeholder images
-Object.keys(projectImages).forEach(id => {
-    const img = document.getElementById(id);
-    if (img) {
-        img.src = projectImages[id];
-    }
-});
-
-// Add animation on scroll
+// Scroll animations for projects
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.2,
+    rootMargin: '0px 0px -100px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -113,10 +70,26 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe project cards
-document.querySelectorAll('.project-card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
+// Observe all project cards
+document.querySelectorAll('.project').forEach((project, index) => {
+    project.style.opacity = '0';
+    project.style.transform = 'translateY(30px)';
+    project.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(project);
+});
+
+// Navbar background on scroll
+let lastScroll = 0;
+const nav = document.querySelector('.nav');
+
+window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll > 100) {
+        nav.style.background = 'rgba(10, 10, 10, 0.95)';
+    } else {
+        nav.style.background = 'rgba(10, 10, 10, 0.8)';
+    }
+    
+    lastScroll = currentScroll;
 });
